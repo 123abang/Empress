@@ -35,7 +35,7 @@ const InvestmentDashboard: React.FC = () => {
       <div className="flex items-center gap-4 border-b pb-4">
       <Image src={Img} alt="Profile" width={64} height={64} className="rounded-full" />
         <div>
-          <h2 className="text-2xl font-semibold">Victoria Vergara</h2>
+          <h2 className="text-2xl font-semibold"> Sophia  Vergara</h2>
           <p className="text-gray-500">Investor</p>
         </div>
       </div>
