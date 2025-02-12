@@ -23,7 +23,7 @@ export default function Home() {
       <header className="px-4 lg:px-6 h-14 flex items-center bg-white shadow-sm">
         <Link className="flex items-center justify-center" href="#">
           <TrendingUp className="h-6 w-6 text-blue-600" />
-          <span className="ml-2 text-xl font-bold text-blue-600">Wealth Invest Co.</span>
+          <span className="ml-2 text-xl font-bold text-blue-600">Empress Investment Group</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link className="text-sm font-medium hover:text-blue-600" href="#about">
@@ -48,13 +48,13 @@ export default function Home() {
       </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black text-white relative overflow-hidden">
-          <Image
+          {/* <Image
             src="/hero-bg.jpg"
             alt="Investment Background"
             layout="fill"
             objectFit="cover"
             className="opacity-50"
-          />
+          /> */}
           <div className="container px-4 md:px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Link href='/login'>
+                <Link href='/news'>
                   <Button className="bg-blue-600 text-white hover:bg-blue-700">Get Started</Button>
                 </Link>
                 <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black" style={{color:'black'}}>
@@ -91,7 +91,7 @@ export default function Home() {
             >
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">About Us</h2>
               <p className="mt-4 max-w-[700px] text-gray-700 md:text-xl">
-                At Wealth Invest Co., we are dedicated to helping our clients achieve their financial goals through
+                At Empress Investment Group., we are dedicated to helping our clients achieve their financial goals through
                 expert advice, innovative strategies, and personalized service. With decades of experience in the
                 financial industry, our team of professionals is committed to your success.
               </p>
@@ -216,13 +216,13 @@ export default function Home() {
                   Have questions or ready to start your investment journey? Get in touch with our expert team today.
                 </p>
                 <p className="mb-2">
-                  <strong>Address:</strong> 123 Finance Street, New York, NY 10001
+                  <strong>Address:</strong> Malibu, Los Angeles
                 </p>
                 <p className="mb-2">
-                  <strong>Phone:</strong> (555) 123-4567
+                  <strong>Phone:</strong> +1(442)2955999
                 </p>
                 <p className="mb-2">
-                  <strong>Email:</strong> info@wealthinvestco.com
+                  <strong>Email:</strong> empressgroup2000gmail.com
                 </p>
               </motion.div>
               <motion.form
@@ -250,7 +250,7 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold mb-4">About Us</h3>
               <p className="text-sm text-gray-400">
-                Wealth Invest Co. is your trusted partner in financial growth and security.
+              Empress Investment Group. is your trusted partner in financial growth and security.
               </p>
             </div>
             <div>
@@ -272,8 +272,8 @@ export default function Home() {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Contact</h3>
-              <p className="text-sm text-gray-400">123 Finance Street, New York, NY 10001</p>
-              <p className="text-sm text-gray-400">info@wealthinvestco.com</p>
+              <p className="text-sm text-gray-400">Malibu, Los Angeles</p>
+              <p className="text-sm text-gray-400">+1(442)2955999</p>
               <p className="text-sm text-gray-400">(555) 123-4567</p>
             </div>
             <div>
@@ -295,7 +295,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
-            <p>© 2024 Wealth Invest Co. All rights reserved.</p>
+            <p>© 2024 Empress Investment Group. All rights reserved.</p>
           </div>
         </div>
       </footer>
