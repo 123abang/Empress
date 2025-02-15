@@ -12,20 +12,44 @@ import {
   Twitter,
   LinkedinIcon as LinkedIn,
   Instagram,
+  Menu,
+  X
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
+import { useState } from "react"
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center bg-white shadow-sm">
+      <header className="px-4 lg:px-6 h-14 flex items-center bg-white shadow-sm relative">
         <Link className="flex items-center justify-center" href="#">
           <TrendingUp className="h-6 w-6 text-blue-600" />
           <span className="ml-2 text-xl font-bold text-blue-600">Empress Investment Group</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        
+        {/* Mobile menu button */}
+        <button 
+          onClick={toggleMenu}
+          className="ml-auto lg:hidden"
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? (
+            <X className="h-6 w-6 text-blue-600" />
+          ) : (
+            <Menu className="h-6 w-6 text-blue-600" />
+          )}
+        </button>
+
+        {/* Desktop navigation */}
+        <nav className="ml-auto hidden lg:flex gap-6">
           <Link className="text-sm font-medium hover:text-blue-600" href="#about">
             About
           </Link>
@@ -45,6 +69,56 @@ export default function Home() {
             Our Team
           </Link>
         </nav>
+
+        {/* Mobile navigation */}
+        {isMenuOpen && (
+          <div className="absolute top-14 left-0 right-0 bg-white shadow-lg lg:hidden z-50">
+            <nav className="flex flex-col py-4">
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="#about"
+                onClick={toggleMenu}
+              >
+                About
+              </Link>
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="#services"
+                onClick={toggleMenu}
+              >
+                Services
+              </Link>
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="#packages"
+                onClick={toggleMenu}
+              >
+                Packages
+              </Link>
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="#contact"
+                onClick={toggleMenu}
+              >
+                Contact
+              </Link>
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="/news"
+                onClick={toggleMenu}
+              >
+                Login
+              </Link>
+              <Link 
+                className="px-4 py-2 text-sm font-medium hover:bg-blue-50 hover:text-blue-600" 
+                href="/team"
+                onClick={toggleMenu}
+              >
+                Our Team
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black text-white relative overflow-hidden">

@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white flex flex-col items-center justify-center p-4">
-      <div className="absolute top-4 right-4 text-2xl font-bold text-blue-600">Wealth Invest Co.</div>
+      <div className="absolute top-4 right-4 text-2xl font-bold text-blue-600">Empress Investment Group</div>
       <div className="w-full max-w-md">
         <form onSubmit={handleSubmit} className="bg-white shadow-xl rounded-lg px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
