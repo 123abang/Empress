@@ -1,301 +1,321 @@
-"use client";
+// "use client"
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, BarChart, Bar, PieChart, Pie, Cell, Area, AreaChart, RadialBarChart, RadialBar, Legend } from 'recharts';
-import { TrendingUp, TrendingDown, DollarSign, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
 
-const investmentData = [
-  { month: "Jan", invested: 5000, returns: 5200, profit: 200 },
-  { month: "Feb", invested: 5000, returns: 5300, profit: 300 },
-  { month: "Mar", invested: 5000, returns: 5500, profit: 500 },
-  { month: "Apr", invested: 5000, returns: 5800, profit: 800 },
-  { month: "May", invested: 5000, returns: 6000, profit: 1000 },
-  { month: "Jun", invested: 5000, returns: 6200, profit: 1200 },
-];
+// import React, { useState, useEffect } from 'react';
+// import { motion } from 'framer-motion';
+// import CountUp from 'react-countup';
+// import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, AreaChart, Area } from 'recharts';
+// import { useTranslation } from 'react-i18next';
+// import { Globe } from 'lucide-react';
+// import i18next from 'i18next';
+// import { initReactI18next } from 'react-i18next';
+// import Image from 'next/image';
+// import Img from './public/image copy.png'
 
-const investments = [
-  { name: "Stocks", amount: "$5000", growth: "+12%", date: "Jan 2024", color: "#0088FE" },
-  { name: "Real Estate", amount: "$8000", growth: "+9%", date: "Feb 2024", color: "#00C49F" },
-  { name: "Crypto", amount: "$3000", growth: "-4%", date: "Mar 2024", color: "#FFBB28" },
-];
 
-const pieData = [
-  { name: "Stocks", value: 5000, fill: "#0088FE" },
-  { name: "Real Estate", value: 8000, fill: "#00C49F" },
-  { name: "Crypto", value: 3000, fill: "#FFBB28" },
-];
 
-const performanceData = [
-  { name: "Stocks", value: 12, fill: "#0088FE" },
-  { name: "Real Estate", value: 9, fill: "#00C49F" },
-  { name: "Crypto", value: 4, fill: "#FFBB28" },
-];
 
-function InvestmentDashboard() {
-  const [selectedChart, setSelectedChart] = useState('line');
-  const [hoveredInvestment, setHoveredInvestment] = useState(null);
+// i18next
+//   .use(initReactI18next)
+//   .init({
+//     resources: {
+//       en: {
+//         translation: {
+//           welcome: 'Welcome',
+//           bonusMessage: 'Welcome! Here is your bonus for investing {{amount}}',
+//           totalInvestment: 'Total Investment',
+//           totalProfit: 'Total Profit',
+//           invested: 'Invested',
+//           since: 'Since',
+//           investmentGrowth: 'Investment Growth',
+//           Stocks: 'Stocks',
+//           'Real Estate': 'Real Estate',
+//           Crypto: 'Cryptocurrency',
+//           portfolioValue: 'Portfolio Value'
+//         }
+//       },
+//       es: {
+//         translation: {
+//           welcome: 'Bienvenido',
+//           bonusMessage: '¡Bienvenido! Aquí está tu bono por invertir {{amount}}',
+//           totalInvestment: 'Inversión Total',
+//           totalProfit: 'Beneficio Total',
+//           invested: 'Invertido',
+//           since: 'Desde',
+//           investmentGrowth: 'Crecimiento de la Inversión',
+//           Stocks: 'Acciones',
+//           'Real Estate': 'Bienes Raíces',
+//           Crypto: 'Criptomoneda',
+//           portfolioValue: 'Valor del Portafolio'
+//         }
+//       }
+//     },
+//     lng: 'en',
+//     interpolation: {
+//       escapeValue: false
+//     }
+//   });
 
-  const chartVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  };
+// const investments = [
+//   { name: "Stocks", amount: "$500", growth: "+12%", date: "Feb 14 2024" },
+//   { name: "Real Estate", amount: "$200", growth: "+9%", date: "Feb 14 2024" },
+//   { name: "Crypto", amount: "$400", growth: "-4%", date: "Feb 14 2024" },
+// ];
 
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-    hover: { scale: 1.05, transition: { duration: 0.2 } }
-  };
+// function App() {
+//   const { t } = useTranslation();
+//   const [currentLanguage, setCurrentLanguage] = useState('en');
+//   const [totalProfit, setTotalProfit] = useState(0.001);
+//   const [stockData, setStockData] = useState([]);
+//   const [cryptoData, setCryptoData] = useState([]);
+//   const [realEstateData, setRealEstateData] = useState([]);
+  
+  
+//   const generateNewPrice = (lastPrice) => {
+//     const change = (Math.random() - 0.5) * 2; 
+//     return Math.max(0, lastPrice + change);
+//   };
 
-  return (
-    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-6 bg-gray-50 min-h-screen">
-      {/* Header Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center gap-4 border-b pb-4 bg-white rounded-lg p-6 shadow-sm"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
-          alt="Profile"
-          className="w-16 h-16 rounded-full object-cover"
-        />
-        <div>
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-2xl font-semibold"
-          >
-            Victoria Vergara
-          </motion.h2>
-          <p className="text-gray-500">Senior Investment Analyst</p>
-        </div>
-      </motion.div>
+  
+//   useEffect(() => {
+//     const targetProfit = 300;
+//     const duration = 24 * 60 * 60 * 1000; 
+//     const increment = (targetProfit - 0.001) / (duration / 1000); 
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
-          className="p-6 bg-white rounded-lg shadow-sm"
-        >
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Total Investment</h3>
-            <DollarSign className="text-green-500" />
-          </div>
-          <p className="text-3xl font-bold text-green-600 mt-2">$16,000</p>
-          <p className="text-sm text-gray-500 mt-1">+15% from last month</p>
-        </motion.div>
+//     const interval = setInterval(() => {
+//       setTotalProfit(prev => {
+//         const newValue = prev + increment;
+//         return newValue >= targetProfit ? targetProfit : newValue;
+//       });
+//     }, 1000);
 
-        <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
-          className="p-6 bg-white rounded-lg shadow-sm"
-        >
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Total Profit</h3>
-            <TrendingUp className="text-green-500" />
-          </div>
-          <p className="text-3xl font-bold text-green-600 mt-2">$4,000</p>
-          <p className="text-sm text-gray-500 mt-1">+8% from last month</p>
-        </motion.div>
+//     return () => clearInterval(interval);
+//   }, []);
 
-        <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
-          className="p-6 bg-white rounded-lg shadow-sm"
-        >
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">ROI</h3>
-            <PieChartIcon className="text-blue-500" />
-          </div>
-          <p className="text-3xl font-bold text-blue-600 mt-2">25%</p>
-          <p className="text-sm text-gray-500 mt-1">Annual return</p>
-        </motion.div>
-      </div>
+//   // Generate real-time market data
+//   useEffect(() => {
+//     const updateMarketData = () => {
+//       setStockData(prev => {
+//         const newData = [...(prev.length >= 20 ? prev.slice(1) : prev)];
+//         const lastPrice = newData.length > 0 ? newData[newData.length - 1].value : 100;
+//         newData.push({
+//           time: new Date().toLocaleTimeString(),
+//           value: generateNewPrice(lastPrice)
+//         });
+//         return newData;
+//       });
 
-      {/* Chart Controls */}
-      <div className="flex gap-4 mb-4">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setSelectedChart('line')}
-          className={`px-4 py-2 rounded-lg ${selectedChart === 'line' ? 'bg-blue-500 text-white' : 'bg-white'}`}
-        >
-          Line Chart
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setSelectedChart('area')}
-          className={`px-4 py-2 rounded-lg ${selectedChart === 'area' ? 'bg-blue-500 text-white' : 'bg-white'}`}
-        >
-          Area Chart
-        </motion.button>
-      </div>
+//       setCryptoData(prev => {
+//         const newData = [...(prev.length >= 20 ? prev.slice(1) : prev)];
+//         const lastPrice = newData.length > 0 ? newData[newData.length - 1].value : 100;
+//         newData.push({
+//           time: new Date().toLocaleTimeString(),
+//           value: generateNewPrice(lastPrice)
+//         });
+//         return newData;
+//       });
 
-      {/* Dynamic Chart Section */}
-      <motion.div
-        variants={chartVariants}
-        initial="hidden"
-        animate="visible"
-        className="bg-white p-6 rounded-lg shadow-sm"
-      >
-        <h3 className="text-lg font-semibold mb-4">Investment Performance</h3>
-        <div className="w-full h-[400px]">
-          <ResponsiveContainer>
-            <AnimatePresence mode="wait">
-              {selectedChart === 'line' ? (
-                <LineChart data={investmentData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line 
-                    type="monotone" 
-                    dataKey="returns" 
-                    stroke="#4CAF50" 
-                    strokeWidth={2}
-                    dot={{ fill: '#4CAF50' }}
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="invested" 
-                    stroke="#2196F3" 
-                    strokeWidth={2}
-                    dot={{ fill: '#2196F3' }}
-                  />
-                </LineChart>
-              ) : (
-                <AreaChart data={investmentData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area 
-                    type="monotone" 
-                    dataKey="returns" 
-                    stackId="1" 
-                    stroke="#4CAF50" 
-                    fill="#4CAF50" 
-                    fillOpacity={0.6}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="invested" 
-                    stackId="1" 
-                    stroke="#2196F3" 
-                    fill="#2196F3" 
-                    fillOpacity={0.6}
-                  />
-                </AreaChart>
-              )}
-            </AnimatePresence>
-          </ResponsiveContainer>
-        </div>
-      </motion.div>
+//       setRealEstateData(prev => {
+//         const newData = [...(prev.length >= 20 ? prev.slice(1) : prev)];
+//         const lastPrice = newData.length > 0 ? newData[newData.length - 1].value : 100;
+//         newData.push({
+//           time: new Date().toLocaleTimeString(),
+//           value: generateNewPrice(lastPrice)
+//         });
+//         return newData;
+//       });
+//     };
 
-      {/* Investment Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {investments.map((inv, index) => (
-          <motion.div
-            key={index}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-            onHoverStart={() => setHoveredInvestment(index)}
-            onHoverEnd={() => setHoveredInvestment(null)}
-            className="p-6 bg-white rounded-lg shadow-sm"
-          >
-            <div className="flex justify-between items-center">
-              <h4 className="font-medium text-lg">{inv.name}</h4>
-              {inv.growth.startsWith('-') ? (
-                <TrendingDown className="text-red-500" />
-              ) : (
-                <TrendingUp className="text-green-500" />
-              )}
-            </div>
-            <p className="text-2xl font-bold mt-2" style={{ color: inv.color }}>{inv.amount}</p>
-            <p className="text-sm text-gray-600">Since: {inv.date}</p>
-            <p className={`text-sm font-medium ${inv.growth.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>
-              {inv.growth}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+//     // Update every 2 seconds
+//     const interval = setInterval(updateMarketData, 2000);
+//     return () => clearInterval(interval);
+//   }, []);
 
-      {/* Bottom Charts Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <motion.div
-          variants={chartVariants}
-          initial="hidden"
-          animate="visible"
-          className="bg-white p-6 rounded-lg shadow-sm"
-        >
-          <h3 className="text-lg font-semibold mb-4">Portfolio Distribution</h3>
-          <div className="h-[300px]">
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
+//   const toggleLanguage = () => {
+//     const newLang = currentLanguage === 'en' ? 'es' : 'en';
+//     setCurrentLanguage(newLang);
+//     i18next.changeLanguage(newLang);
+//   };
 
-        <motion.div
-          variants={chartVariants}
-          initial="hidden"
-          animate="visible"
-          className="bg-white p-6 rounded-lg shadow-sm"
-        >
-          <h3 className="text-lg font-semibold mb-4">Performance Metrics</h3>
-          <div className="h-[300px]">
-            <ResponsiveContainer>
-              <RadialBarChart
-                innerRadius="10%"
-                outerRadius="80%"
-                data={performanceData}
-                startAngle={180}
-                endAngle={0}
-              >
-                <RadialBar
-                  minAngle={15}
-                  label={{ fill: '#666', position: 'insideStart' }}
-                  background
-                  clockWise={true}
-                  dataKey="value"
-                />
-                <Legend iconSize={10} width={120} height={140} layout="vertical" verticalAlign="middle" align="right" />
-                <Tooltip />
-              </RadialBarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <motion.div 
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       className="min-h-screen bg-[url('https://images.unsplash.com/photo-1579547621706-1a9c79d5c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-fixed"
+//     >
+//       <div className="backdrop-blur-sm bg-white/80 min-h-screen p-4 md:p-8">
+//         <button 
+//           onClick={toggleLanguage}
+//           className="fixed top-4 right-4 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100"
+//         >
+//           <Globe className="w-6 h-6" />
+//         </button>
 
-export default InvestmentDashboard;
+//         <motion.div 
+//           className="max-w-5xl mx-auto space-y-6"
+//           initial={{ y: 20 }}
+//           animate={{ y: 0 }}
+//         >
+          
+//           <motion.div 
+//             className="text-center p-8 bg-white rounded-2xl shadow-xl mb-8"
+//             whileHover={{ scale: 1.02 }}
+//           >
+//             <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('welcome')} Jeorge!</h1>
+//             <p className="text-xl text-gray-600">
+//               {t('bonusMessage', { amount: '$1,000' })}
+//             </p>
+//           </motion.div>
+
+          
+//           <div className="flex justify-center mb-8">
+//             <motion.div
+//               whileHover={{ scale: 1.1 }}
+//               className="rounded-full overflow-hidden shadow-2xl"
+//             >
+//                         <Image 
+//             src={Img}
+//             alt="Profile"
+//             className="w-32 h-32 object-cover"
+//           />
+//             </motion.div>
+//           </div>
+
+          
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <motion.div 
+//               className="p-6 bg-white rounded-xl shadow-lg"
+//               whileHover={{ scale: 1.03 }}
+//             >
+//               <h3 className="text-lg font-semibold">{t('totalInvestment')}</h3>
+//               <CountUp
+//                 end={1100}
+//                 prefix="$"
+//                 duration={2}
+//                 className="text-3xl font-bold text-green-600"
+//               />
+//             </motion.div>
+
+//             <motion.div 
+//               className="p-6 bg-white rounded-xl shadow-lg"
+//               whileHover={{ scale: 1.03 }}
+//             >
+//               <h3 className="text-lg font-semibold">{t('totalProfit')}</h3>
+//               <CountUp
+//                 end={totalProfit}
+//                 decimals={3}
+//                 prefix="$"
+//                 duration={0}
+//                 className="text-3xl font-bold text-green-600"
+//               />
+//             </motion.div>
+//           </div>
+
+          
+//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//             {investments.map((inv, index) => (
+//               <motion.div
+//                 key={index}
+//                 className="p-6 bg-white rounded-xl shadow-lg"
+//                 whileHover={{ scale: 1.05 }}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 animate={{ opacity: 1, y: 0 }}
+//                 transition={{ delay: index * 0.1 }}
+//               >
+//                 <h4 className="font-semibold text-xl mb-2">{t(inv.name)}</h4>
+//                 <p className="text-gray-600">{t('invested')}: {inv.amount}</p>
+//                 <p className="text-gray-600">{t('since')}: {inv.date}</p>
+//                 <p className={inv.growth.startsWith('-') ? 'text-red-500' : 'text-green-500'}>
+//                   {inv.growth}
+//                 </p>
+//               </motion.div>
+//             ))}
+//           </div>
+
+          
+//           <div className="grid grid-cols-1 gap-6">
+            
+//             <motion.div 
+//               className="bg-white p-6 rounded-xl shadow-lg"
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//             >
+//               <h3 className="text-xl font-semibold mb-4">{t('Stocks')}</h3>
+//               <div className="h-64">
+//                 <ResponsiveContainer width="100%" height="100%">
+//                   <AreaChart data={stockData}>
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="time" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Area 
+//                       type="monotone" 
+//                       dataKey="value" 
+//                       stroke="#0088FE" 
+//                       fill="#0088FE" 
+//                       fillOpacity={0.3}
+//                     />
+//                   </AreaChart>
+//                 </ResponsiveContainer>
+//               </div>
+//             </motion.div>
+
+            
+//             <motion.div 
+//               className="bg-white p-6 rounded-xl shadow-lg"
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//             >
+//               <h3 className="text-xl font-semibold mb-4">{t('Crypto')}</h3>
+//               <div className="h-64">
+//                 <ResponsiveContainer width="100%" height="100%">
+//                   <AreaChart data={cryptoData}>
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="time" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Area 
+//                       type="monotone" 
+//                       dataKey="value" 
+//                       stroke="#FFBB28" 
+//                       fill="#FFBB28" 
+//                       fillOpacity={0.3}
+//                     />
+//                   </AreaChart>
+//                 </ResponsiveContainer>
+//               </div>
+//             </motion.div>
+
+            
+//             <motion.div 
+//               className="bg-white p-6 rounded-xl shadow-lg"
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//             >
+//               <h3 className="text-xl font-semibold mb-4">{t('Real Estate')}</h3>
+//               <div className="h-64">
+//                 <ResponsiveContainer width="100%" height="100%">
+//                   <AreaChart data={realEstateData}>
+//                     <CartesianGrid strokeDasharray="3 3" />
+//                     <XAxis dataKey="time" />
+//                     <YAxis />
+//                     <Tooltip />
+//                     <Area 
+//                       type="monotone" 
+//                       dataKey="value" 
+//                       stroke="#00C49F" 
+//                       fill="#00C49F" 
+//                       fillOpacity={0.3}
+//                     />
+//                   </AreaChart>
+//                 </ResponsiveContainer>
+//               </div>
+//             </motion.div>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </motion.div>
+//   );
+// }
+
+// export default App;
